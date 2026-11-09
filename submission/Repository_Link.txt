@@ -1,0 +1,7 @@
+NOT YET PUBLISHED TO GITHUB
+
+A live repository URL cannot be supplied without an authenticated GitHub account.
+The complete source and a portable Git bundle are included in the ZIP.
+Create an empty repository in your GitHub account, then follow README.md.
+scripts/publish_github.py writes the verified URL here only after a successful push.
+Do not submit this status file as if it were a repository link.

@@ -1,0 +1,8 @@
+Standard Python unit checks
+Command: python -m pytest -q
+Result: 9 passed, 1 integration test skipped (no native PostgreSQL target configured).
+
+Adapted database checks
+Result: 10 passed in the PGlite 0.5.13 QA adapter.
+The adapter executes the actual project SQL and application methods, but replaces psycopg network transport and streaming COPY with PGlite blob COPY.
+These are application and SQL checks, not Docker runtime certification.

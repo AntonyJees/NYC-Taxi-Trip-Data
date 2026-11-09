@@ -1,0 +1,9 @@
+Phase 2 implements the NYC taxi batch architecture through separate ingestion, PostgreSQL storage, transformation, and export services. Docker Compose defines the local infrastructure, while Python coordinates processing and SQL produces aggregate features.
+
+The January 2025 source contains 3,475,226 records. Validation retained 3,328,707 records and rejected 146,519 under documented cleaning rules. Ingestion preserves the original Parquet file, verifies its schema and checksum, and loads selected columns in batches. Transformation checks timestamps, duration, distance, charges, and locations, while rejection counts reconcile with source totals. Repeated execution replaces the monthly partition, preventing duplicate loading.
+
+Delivery produces hourly features, daily summaries, quarterly features, and provenance manifests. January alone represents an incomplete quarter; complete quarterly delivery requires three processed months. Credentials remain outside version control, and a separate reader account restricts delivery access.
+
+Ten application checks passed through a PostgreSQL compatible test adapter. Docker execution, network isolation, and native database connectivity still require verification on the target machine. The package includes code, configuration, tests, documentation, and portable Git history.
+
+Repository: [REPOSITORY_URL]. Publish the source through the supplied instructions, replace this marker with the repository URL, and submit the accompanying link TXT through PebblePad. GitHub publication remains necessary to satisfy the requirements for this development phase.

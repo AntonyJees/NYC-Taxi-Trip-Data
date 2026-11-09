@@ -1,0 +1,12 @@
+..........                                                               [100%]
+10 passed in 0.40s
+ADAPTED APPLICATION TESTS PASSED
+{"time": "2026-10-29T11:14:33.233745+00:00", "event": "ingest_complete", "source_url": "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-01.parquet", "month": "2025-01", "sha256": "9af277e4c0d3f9deb30644da822981e1e7df6af58313170fd3aa8a474485488a", "raw_rows": 3475226, "bytes": 59158238, "columns": ["VendorID", "tpep_pickup_datetime", "tpep_dropoff_datetime", "passenger_count", "trip_distance", "RatecodeID", "store_and_fwd_flag", "PULocationID", "DOLocationID", "payment_type", "fare_amount", "extra", "mta_tax", "tip_amount", "tolls_amount", "improvement_surcharge", "total_amount", "congestion_surcharge", "Airport_fee", "cbd_congestion_fee"], "schema_version": 1, "seconds": 64.736}
+FULL INGEST DONE
+{"time": "2026-10-29T11:15:00.714857+00:00", "event": "transform_complete", "month": "2025-01", "raw_rows": 3475226, "sha256": "9af277e4c0d3f9deb30644da822981e1e7df6af58313170fd3aa8a474485488a", "accepted_rows": 3328707, "rejected_rows": 146519, "seconds": 27.473}
+{"time": "2026-10-29T11:15:15.210291+00:00", "event": "export_complete", "snapshot": "/workspace/scratch/154251eb599e/NYC_Taxi_Phase2/outputs/4b689740-7cb8-4251-b896-7ba147ef3ab2", "complete_quarter": false}
+{"time": "2026-10-29T11:16:00.339229+00:00", "event": "transform_complete", "month": "2025-01", "raw_rows": 3475226, "sha256": "9af277e4c0d3f9deb30644da822981e1e7df6af58313170fd3aa8a474485488a", "accepted_rows": 3328707, "rejected_rows": 146519, "seconds": 45.127}
+{"time": "2026-10-29T11:16:17.163433+00:00", "event": "export_complete", "snapshot": "/workspace/scratch/154251eb599e/NYC_Taxi_Phase2/outputs/ab417942-59cb-447e-b4b4-dc33952f557c", "complete_quarter": false}
+PASS: snapshot hashes, raw/accepted/rejected counts, rejection reasons and monthly/quarterly trip totals
+Quarter complete: False
+FULL DATA VALIDATION PASSED

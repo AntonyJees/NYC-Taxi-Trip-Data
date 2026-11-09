@@ -1,0 +1,12 @@
+{
+  "dataset": "NYC Yellow Taxi January 2025",
+  "source_url": "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-01.parquet",
+  "download_bytes": 59158238,
+  "sha256": "9af277e4c0d3f9deb30644da822981e1e7df6af58313170fd3aa8a474485488a",
+  "rows": 3475226,
+  "row_groups": 4,
+  "schema": "VendorID: int32\ntpep_pickup_datetime: timestamp[us]\ntpep_dropoff_datetime: timestamp[us]\npassenger_count: int64\ntrip_distance: double\nRatecodeID: int64\nstore_and_fwd_flag: large_string\nPULocationID: int32\nDOLocationID: int32\npayment_type: int64\nfare_amount: double\nextra: double\nmta_tax: double\ntip_amount: double\ntolls_amount: double\nimprovement_surcharge: double\ntotal_amount: double\ncongestion_surcharge: double\nAirport_fee: double\ncbd_congestion_fee: double",
+  "minimum_one_million_passed": true,
+  "verified_at": "2026-10-29",
+  "method": "Downloaded official source, inspected Parquet metadata, computed SHA-256; no fabricated records"
+}

@@ -1,0 +1,66 @@
+name: nyc-taxi-phase2
+x-job: &job
+  build: .
+  image: nyc-taxi-phase2:1.0
+  user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  profiles: [pipeline]
+  networks: [backend]
+  depends_on:
+    db:
+      condition: service_healthy
+  environment: &job-env
+    PGHOST: db
+    PGPORT: "5432"
+    PGDATABASE: taxi
+    PGUSER: taxi_pipeline
+    PGPASSWORD: ${PIPELINE_PASSWORD:?Run python scripts/setup.py first}
+    DATA_DIR: /data/raw
+    OUTPUT_DIR: /outputs
+services:
+  db:
+    image: postgres:17.4-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: taxi
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run python scripts/setup.py first}
+      PIPELINE_PASSWORD: ${PIPELINE_PASSWORD:?Run setup first}
+      READER_PASSWORD: ${READER_PASSWORD:?Run setup first}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d:ro
+    networks: [backend]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U postgres -d taxi"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  ingest:
+    <<: *job
+    command: [ingest, --month, "2025-01"]
+    volumes: ["./data/raw:/data/raw"]
+    networks: [backend, download]
+  transform:
+    <<: *job
+    command: [transform, --month, "2025-01"]
+  export:
+    <<: *job
+    command: [export, --month, "2025-01"]
+    environment:
+      <<: *job-env
+      PGUSER: taxi_reader
+      PGPASSWORD: ${READER_PASSWORD:?Run setup first}
+    volumes: ["./outputs:/outputs"]
+  test:
+    <<: *job
+    command: [selfcheck]
+networks:
+  backend:
+    internal: true
+  download: {}
+volumes:
+  pgdata: {}

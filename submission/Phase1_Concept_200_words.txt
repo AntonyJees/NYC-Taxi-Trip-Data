@@ -1,0 +1,7 @@
+This project designs a local batch processing backend for NYC Yellow Taxi Trip Records from January 2025. The Parquet source contains 3,475,226 records with pickup and dropoff timestamps, exceeding the requirement of one million observations.
+
+Four services separate ingestion, PostgreSQL storage, transformation, and output delivery. Python streams selected columns in Arrow batches, while the original source remains available for audit. SQL validates timestamps, durations, distances, charges, and taxi zones before generating hourly, daily, and quarterly summaries. Docker Compose describes the infrastructure, and Git maintains the source history for subsequent GitHub publication.
+
+Reliability depends on schema checks, source checksums, transactional monthly replacement, and reconciliation of accepted and rejected records. These controls support repeatable execution without duplicate loading. Credentials remain outside version control, the database uses an internal network, and delivery uses a reader account.
+
+Monthly ingestion and transformation follow source availability. Complete quarterly delivery requires all three months; January alone produces an explicitly partial result. The architecture offers modular services, traceable outputs, and reproducible local deployment. Its limitations include batch latency, machine capacity, and a single database without high availability. Testing will examine validation, aggregation, repeated execution, and failure recovery before Docker deployment is verified and the repository link is submitted.

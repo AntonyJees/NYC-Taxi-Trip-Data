@@ -1,0 +1,34 @@
+name: nyc-taxi-phase2-tests
+services:
+  db:
+    image: postgres:17.4-bookworm
+    environment:
+      POSTGRES_DB: taxi_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run setup first}
+      PIPELINE_PASSWORD: ${PIPELINE_PASSWORD:?Run setup first}
+      READER_PASSWORD: ${READER_PASSWORD:?Run setup first}
+    tmpfs: [/var/lib/postgresql/data]
+    volumes: ["./sql:/docker-entrypoint-initdb.d:ro"]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U postgres -d taxi_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGPORT: "5432"
+      PGDATABASE: taxi_test
+      PGUSER: taxi_pipeline
+      PGPASSWORD: ${PIPELINE_PASSWORD:?Run setup first}
+      TEST_PG: "1"

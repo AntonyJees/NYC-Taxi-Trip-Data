@@ -1,0 +1,4 @@
+source_month,reason,row_count
+2025-01-01,invalid_amount,144426
+2025-01-01,invalid_duration,2071
+2025-01-01,pickup_outside_source_month,22
